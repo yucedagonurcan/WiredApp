@@ -97,8 +97,14 @@ public class MainActivity extends AppCompatActivity {
             try{
                 //Connect to the website and get the HTML!
                 doc = Jsoup.connect("https://www.wired.com").get();
-                Element element = doc.getElementById("div");
-                Log.d("Element :",element.toString());
+                Elements elements = doc.getElementsByClass("secondary-grid-component");
+                String attr = elements.attr("h5");
+
+
+                    Log.d("Element :",elements.attr("h5"));
+
+
+
 
 
             }catch (IOException e){
