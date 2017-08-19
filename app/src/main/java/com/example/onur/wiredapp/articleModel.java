@@ -6,6 +6,7 @@ public class articleModel {
 
     String articleName ;
     String articleLink ;
+    String articleImageLink;
     ImageView articleImage;
     String articleContent ;
 
@@ -14,6 +15,7 @@ public class articleModel {
         this.articleImage=null;
         this.articleLink = "";
         this.articleName = "";
+        this.articleImageLink = "";
     }
 
     public void printArticleModel(){
@@ -22,5 +24,7 @@ public class articleModel {
         Log.d("Article Link = " , this.articleLink);
         Log.d("Is Photo Exist ? = ",(this.articleImage != null) ? "YES" : "NO");
         Log.d("Article Content = " , this.articleContent);
+        Log.d("Article ImageLink = " , this.articleImageLink);
+
     }
 }

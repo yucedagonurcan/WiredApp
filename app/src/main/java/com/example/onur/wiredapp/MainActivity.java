@@ -1,32 +1,21 @@
 package com.example.onur.wiredapp;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.AsyncTask;
-import android.provider.DocumentsContract;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.graphics.Color;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.List;
-
-import static android.graphics.Color.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> data;
 
 
-    articleModel [] articleModels = new articleModel[5];// We initialize the array of articles !
+    articleModel [] articleModelsArray = new articleModel[5];// We initialize the array of articles !
 
 
 
@@ -52,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(customAdapter);
 
         new ParsePage().execute("https://www.wired.com");
+       // for (int i = 0 ; i < 5 ; i++){
+        //    new ParseContentPage(articleModelsArray[i]).execute(articleModelsArray[i].articleLink);
+        //}
 
 
 
@@ -109,8 +101,9 @@ public class MainActivity extends AppCompatActivity {
                     articleModel tempArticleModel = new articleModel();
                     tempArticleModel.articleName = articleNames.get(i).text().toString();
                     tempArticleModel.articleLink = strings[0] + articleLinks.get(i).attr("href");
-                    articleModels[i] = tempArticleModel;
-                    articleModels[i].printArticleModel();
+                    articleModelsArray[i] = tempArticleModel;
+                    articleModelsArray[i].printArticleModel();
+
                 }
 
             }catch (IOException e){
@@ -122,8 +115,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result){
 
             for (int i = 0 ; i < 5 ; i ++){
-                articleModels[i].printArticleModel();
+                articleModelsArray[i].printArticleModel();
+                new ParseContentPage(articleModelsArray[i]).execute(articleModelsArray[i].articleLink);
             }
+
+
         }
         protected void onPreExecute(String res){
 
@@ -154,19 +150,44 @@ public class MainActivity extends AppCompatActivity {
             try{
                 //Connect to the website and get the HTML!
                 doc = Jsoup.connect(strings[0]).get();
-                Elements elements = doc.getElementsByClass("secondary-grid-component");
-                //Elements articleNames  = elements.select("h5"); // articleNames !!
-                //Elements articleLinks = elements.select("a");
+                Elements elements = doc.select("article");// Article Contents Outer !
+                Elements articleContentElements = elements.select("p");//Article Contents (Just Strings !)
+                currentArticle.articleContent = articleContentElements.text().toString();
 
-                for (int i = 0 ; i < 5 ; i ++){
-                    articleModels[i].printArticleModel();
+
+
+
+                Elements meta = doc.select("meta");// Article Images !
+
+
+                for (int i = 0 ; i < meta.size() ; i++){
+
+                    String metaProperty = meta.get(i).attr("property").toString();
+
+                    if( metaProperty.equals("og:image")){
+                        String articleImageLink = meta.get(i).attr("content");//Image Link !
+                        currentArticle.articleImageLink = articleImageLink ;
+                    }
                 }
+
+
+
+
 
             }catch (IOException e){
 
                 e.printStackTrace();
             }
             return "Executed";
+        }
+        protected void onPostExecute(String result){
+
+            for (int i = 0 ; i < 5 ; i ++){
+                articleModelsArray[i].printArticleModel();
+
+            }
+
+
         }
 
     }
