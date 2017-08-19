@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.onur.wiredapp.MainActivity">
 
-
     <ListView
         android:id="@+id/listView"
 

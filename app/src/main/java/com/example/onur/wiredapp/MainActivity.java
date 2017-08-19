@@ -1,5 +1,6 @@
 package com.example.onur.wiredapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,22 +11,25 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
+
+    ListView listView;
+
+    Context context = this ;
+
     List<String> data;
 
-
     articleModel [] articleModelsArray = new articleModel[5];// We initialize the array of articles !
-
-
 
     String[] Names = {"Onur","Mihri","Serdar","Okan","Berkay","Gamze","Oluculer"};
     @Override
@@ -33,17 +37,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        for (int i = 0 ; i < 5 ; i ++){
+
+            articleModel tempArticleModel = new articleModel();
+            String lfew = "s";
+            articleModelsArray[i] = tempArticleModel ;
+        }
 
 
 
-        ListView listView = (ListView)findViewById(R.id.listView);
+
+        listView = (ListView)findViewById(R.id.listView);
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
-
         new ParsePage().execute("https://www.wired.com");
+        //listView.deferNotifyDataSetChanged();
+
+
+        listView.invalidateViews();
+        //listView.refre
        // for (int i = 0 ; i < 5 ; i++){
         //    new ParseContentPage(articleModelsArray[i]).execute(articleModelsArray[i].articleLink);
         //}
+
 
 
 
@@ -53,10 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     class CustomAdapter extends BaseAdapter{
 
-
         @Override
         public int getCount() {
-            return Names.length;
+            return articleModelsArray.length;
         }
 
         @Override
@@ -74,9 +89,14 @@ public class MainActivity extends AppCompatActivity {
             view = getLayoutInflater().inflate(R.layout.customlayout,null);
             ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
             TextView textView_desc = (TextView)view.findViewById(R.id.textView_description);
-            /*imageView.setImageResource();
-            */
-            textView_desc.setText(Names[i]);
+
+
+
+
+           // imageView = articleModelsArray[i].articleImage;
+
+            textView_desc.setText(articleModelsArray[i].articleName);
+
             textView_desc.setBackgroundColor(getResources().getColor(R.color.white));
             return view;
         }
@@ -139,13 +159,9 @@ public class MainActivity extends AppCompatActivity {
 
             this.currentArticle=currentArticle;
         }
-
-
-
         @Override
         protected String doInBackground(String... strings) {
-
-            //load the document !
+            //Load the document !
             Document doc;
             try{
                 //Connect to the website and get the HTML!
@@ -153,13 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 Elements elements = doc.select("article");// Article Contents Outer !
                 Elements articleContentElements = elements.select("p");//Article Contents (Just Strings !)
                 currentArticle.articleContent = articleContentElements.text().toString();
-
-
-
-
                 Elements meta = doc.select("meta");// Article Images !
-
-
                 for (int i = 0 ; i < meta.size() ; i++){
 
                     String metaProperty = meta.get(i).attr("property").toString();
@@ -169,11 +179,6 @@ public class MainActivity extends AppCompatActivity {
                         currentArticle.articleImageLink = articleImageLink ;
                     }
                 }
-
-
-
-
-
             }catch (IOException e){
 
                 e.printStackTrace();
@@ -182,13 +187,13 @@ public class MainActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String result){
 
+
+        //    Picasso.with(context).load(currentArticle.articleImageLink).into(currentArticle.articleImage);
             for (int i = 0 ; i < 5 ; i ++){
+
                 articleModelsArray[i].printArticleModel();
-
+                listView.invalidateViews();
             }
-
-
         }
-
     }
 }
