@@ -10,7 +10,7 @@ public class articleModel {
     String articleContent ;
 
     articleModel(){
-        this.articleContent ="";
+        this.articleContent = "";
         this.articleImage=null;
         this.articleLink = "";
         this.articleName = "";
@@ -20,7 +20,7 @@ public class articleModel {
 
         Log.d("Article Name = " , this.articleName);
         Log.d("Article Link = " , this.articleLink);
-       // Log.d("Is Photo Exist ? = " , (this.articleImage == null) : "YES"? "NO");
-        Log.d("Article Name = " , this.articleName);
+        Log.d("Is Photo Exist ? = ",(this.articleImage != null) ? "YES" : "NO");
+        Log.d("Article Content = " , this.articleContent);
     }
 }

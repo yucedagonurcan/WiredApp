@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
 
-        new ParsePage().execute();
+        new ParsePage().execute("https://www.wired.com");
 
 
 
@@ -100,29 +100,18 @@ public class MainActivity extends AppCompatActivity {
             Document doc;
             try{
                 //Connect to the website and get the HTML!
-                doc = Jsoup.connect("https://www.wired.com").get();
+                doc = Jsoup.connect(strings[0]).get();
                 Elements elements = doc.getElementsByClass("secondary-grid-component");
                 Elements articleNames  = elements.select("h5"); // articleNames !!
-                Elements articleLinks = elements.select("a");
+                Elements articleLinks = elements.select("a"); // articleLinks !!
 
-
-
-
-
-                        for (int i = 0 ; i < 5 ; i ++){
-
-                            articleModels[i].articleName = articleNames.get(i).text().toString();
-                            articleModels[i].articleLink = articleLinks.get(i).attr("href");
-
-
-
-                        }
-
-
-
-
-
-
+                for (int i = 0 ; i < 5 ; i ++){
+                    articleModel tempArticleModel = new articleModel();
+                    tempArticleModel.articleName = articleNames.get(i).text().toString();
+                    tempArticleModel.articleLink = strings[0] + articleLinks.get(i).attr("href");
+                    articleModels[i] = tempArticleModel;
+                    articleModels[i].printArticleModel();
+                }
 
             }catch (IOException e){
 
@@ -132,9 +121,53 @@ public class MainActivity extends AppCompatActivity {
         }
         protected void onPostExecute(String result){
 
+            for (int i = 0 ; i < 5 ; i ++){
+                articleModels[i].printArticleModel();
+            }
         }
         protected void onPreExecute(String res){
 
         }
+    }
+
+    class ParseContentPage extends  AsyncTask<String,Void,String>{
+
+        //This currentArticle variable will be my parameter to send current article from ParsePage class.
+        //Because I need to change the values of articleImage and articleContent using another page !
+
+        articleModel currentArticle;
+
+        //I am creating a constructor for setting the value of this variable.
+        //Just because I want to send this task the current article.
+        public ParseContentPage(articleModel currentArticle){
+
+            this.currentArticle=currentArticle;
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            //load the document !
+            Document doc;
+            try{
+                //Connect to the website and get the HTML!
+                doc = Jsoup.connect(strings[0]).get();
+                Elements elements = doc.getElementsByClass("secondary-grid-component");
+                //Elements articleNames  = elements.select("h5"); // articleNames !!
+                //Elements articleLinks = elements.select("a");
+
+                for (int i = 0 ; i < 5 ; i ++){
+                    articleModels[i].printArticleModel();
+                }
+
+            }catch (IOException e){
+
+                e.printStackTrace();
+            }
+            return "Executed";
+        }
+
     }
 }
