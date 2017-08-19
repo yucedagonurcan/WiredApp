@@ -23,6 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
 
 import static android.graphics.Color.*;
@@ -31,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     List<String> data;
-    Context mContext;
+
+
+    articleModel [] articleModels = new articleModel[5];// We initialize the array of articles !
+
+
 
     String[] Names = {"Onur","Mihri","Serdar","Okan","Berkay","Gamze","Oluculer"};
     @Override
@@ -42,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        mContext = this;
         ListView listView = (ListView)findViewById(R.id.listView);
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
@@ -98,10 +102,23 @@ public class MainActivity extends AppCompatActivity {
                 //Connect to the website and get the HTML!
                 doc = Jsoup.connect("https://www.wired.com").get();
                 Elements elements = doc.getElementsByClass("secondary-grid-component");
-                String attr = elements.attr("h5");
+                Elements articleNames  = elements.select("h5"); // articleNames !!
+                Elements articleLinks = elements.select("a");
 
 
-                    Log.d("Element :",elements.attr("h5"));
+
+
+
+                        for (int i = 0 ; i < 5 ; i ++){
+
+                            articleModels[i].articleName = articleNames.get(i).text().toString();
+                            articleModels[i].articleLink = articleLinks.get(i).attr("href");
+
+
+
+                        }
+
+
 
 
 
