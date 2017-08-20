@@ -50,7 +50,7 @@ public class articlePageModel extends AppCompatActivity{
                 .into(articlePageImageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        Log.d("Success","Compelete");
+                        Log.d("Success","Complete");
                     }
 
                     @Override

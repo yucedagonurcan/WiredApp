@@ -23,18 +23,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
     ListView listView;
-
     Context context = this ;
-
     List<String> data;
-
     articleModel [] articleModelsArray = new articleModel[5];// We initialize the array of articles !
-
-    String[] Names = {"Onur","Mihri","Serdar","Okan","Berkay","Gamze","Oluculer"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,40 +43,20 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                if (position == 0) {
                     Intent myIntent = new Intent(view.getContext(), articlePageModel.class);
-                    String [] articleVariables = {articleModelsArray[0].articleName,articleModelsArray[0].articleContent,articleModelsArray[0].articleImageLink};
+                    String [] articleVariables = {articleModelsArray[position].articleName,
+                            articleModelsArray[position].articleContent,
+                            articleModelsArray[position].articleImageLink};
                     myIntent.putExtra("variablesOfArticle",articleVariables);
                     startActivityForResult(myIntent, 0);
-                }
-//
-//                if (position == 1) {
-//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
-//
-//                if (position == 2) {
-//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
-//
-//                if (position == 3) {
-//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
-//
-//                if (position == 4) {
-//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
-//                    startActivityForResult(myIntent, 0);
-//                }
+
+
             }
         });
 
 
         new ParsePage().execute("https://www.wired.com");
     }
-
-
     class CustomAdapter extends BaseAdapter{
 
 
