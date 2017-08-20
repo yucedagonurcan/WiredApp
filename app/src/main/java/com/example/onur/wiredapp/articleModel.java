@@ -1,10 +1,12 @@
 package com.example.onur.wiredapp;
 
 import android.util.Log;
-import android.widget.ImageView;
+
+/**
+ * Created by onur on 20.08.2017.
+ */
 
 public class articleModel{
-
 
 
     String articleName ;
@@ -18,7 +20,10 @@ public class articleModel{
         this.articleLink = "";
         this.articleName = "";
         this.articleImageLink = "";
+
+
     }
+
 
     public void printArticleModel(){
 

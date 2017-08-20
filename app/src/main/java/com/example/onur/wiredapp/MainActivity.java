@@ -1,18 +1,21 @@
 package com.example.onur.wiredapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -36,38 +39,52 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         for (int i = 0 ; i < 5 ; i ++){
 
             articleModel tempArticleModel = new articleModel();
-            String lfew = "s";
             articleModelsArray[i] = tempArticleModel ;
         }
-
-
-
-
         listView = (ListView)findViewById(R.id.listView);
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                if (position == 0) {
+                    Intent myIntent = new Intent(view.getContext(), articlePageModel.class);
+                    startActivityForResult(myIntent, 0);
+                }
+//
+//                if (position == 1) {
+//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
+//
+//                if (position == 2) {
+//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
+//
+//                if (position == 3) {
+//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity2.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
+//
+//                if (position == 4) {
+//                    Intent myIntent = new Intent(view.getContext(), ListItemActivity1.class);
+//                    startActivityForResult(myIntent, 0);
+//                }
+            }
+        });
+
+
         new ParsePage().execute("https://www.wired.com");
-        //listView.deferNotifyDataSetChanged();
-
-
-        listView.invalidateViews();
-        //listView.refre
-       // for (int i = 0 ; i < 5 ; i++){
-        //    new ParseContentPage(articleModelsArray[i]).execute(articleModelsArray[i].articleLink);
-        //}
-
-
-
-
-
-
     }
 
+
     class CustomAdapter extends BaseAdapter{
+
 
         @Override
         public int getCount() {
@@ -85,15 +102,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             view = getLayoutInflater().inflate(R.layout.customlayout,null);
             ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
             TextView textView_desc = (TextView)view.findViewById(R.id.textView_description);
+            if (articleModelsArray[i].articleImageLink != ""){
+                Picasso
+                        .with(context)
+                        .load(articleModelsArray[i].articleImageLink)
+                        .fit() // will explain later
+                        .into(imageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d("Success","Compelete");
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+
+            }
 
 
-
-
-           // imageView = articleModelsArray[i].articleImage;
 
             textView_desc.setText(articleModelsArray[i].articleName);
 
@@ -150,8 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         //This currentArticle variable will be my parameter to send current article from ParsePage class.
         //Because I need to change the values of articleImage and articleContent using another page !
-
-        articleModel currentArticle;
+        articleModel currentArticle = new articleModel();
 
         //I am creating a constructor for setting the value of this variable.
         //Just because I want to send this task the current article.
@@ -177,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
                     if( metaProperty.equals("og:image")){
                         String articleImageLink = meta.get(i).attr("content");//Image Link !
                         currentArticle.articleImageLink = articleImageLink ;
+
+
                     }
                 }
             }catch (IOException e){
@@ -185,15 +218,9 @@ public class MainActivity extends AppCompatActivity {
             }
             return "Executed";
         }
-        protected void onPostExecute(String result){
-
-
-        //    Picasso.with(context).load(currentArticle.articleImageLink).into(currentArticle.articleImage);
-            for (int i = 0 ; i < 5 ; i ++){
-
-                articleModelsArray[i].printArticleModel();
-                listView.invalidateViews();
-            }
+        protected void onPostExecute(final String result){
+            listView.invalidateViews();
         }
     }
+
 }
