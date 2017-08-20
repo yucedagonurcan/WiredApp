@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (position == 0) {
                     Intent myIntent = new Intent(view.getContext(), articlePageModel.class);
+                    String [] articleVariables = {articleModelsArray[0].articleName,articleModelsArray[0].articleContent,articleModelsArray[0].articleImageLink};
+                    myIntent.putExtra("variablesOfArticle",articleVariables);
                     startActivityForResult(myIntent, 0);
                 }
 //
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 Picasso
                         .with(context)
                         .load(articleModelsArray[i].articleImageLink)
-                        .fit() // will explain later
+                        .fit()
                         .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {

@@ -1,11 +1,6 @@
 package com.example.onur.wiredapp;
 
 import android.util.Log;
-
-/**
- * Created by onur on 20.08.2017.
- */
-
 public class articleModel{
 
 
