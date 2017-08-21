@@ -13,62 +13,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
 
     ListView listView;
     Context context = this ;
     List<String> data;
     articleModel [] articleModelsArray = new articleModel[5];// We initialize the array of articles !
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         for (int i = 0 ; i < 5 ; i ++){
 
@@ -88,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
                             articleModelsArray[position].articleImageLink};
                     myIntent.putExtra("variablesOfArticle",articleVariables);
                     startActivityForResult(myIntent, 0);
-
-
             }
         });
 
@@ -137,9 +98,6 @@ public class MainActivity extends AppCompatActivity {
                         });
 
             }
-
-
-
             textView_desc.setText(articleModelsArray[i].articleName);
 
             textView_desc.setBackgroundColor(getResources().getColor(R.color.white));
@@ -148,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class ParsePage extends AsyncTask<String,Void,String>{
-
-
 
         @Override
         protected String doInBackground(String... strings) {
@@ -221,8 +177,6 @@ public class MainActivity extends AppCompatActivity {
                     if( metaProperty.equals("og:image")){
                         String articleImageLink = meta.get(i).attr("content");//Image Link !
                         currentArticle.articleImageLink = articleImageLink ;
-
-
                     }
                 }
             }catch (IOException e){

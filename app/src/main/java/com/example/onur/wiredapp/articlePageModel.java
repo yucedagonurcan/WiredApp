@@ -39,7 +39,6 @@ public class articlePageModel extends AppCompatActivity{
 
     }
 
-
     String [] variablesOfArticle ;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -81,13 +80,14 @@ public class articlePageModel extends AppCompatActivity{
                     }
                 });
 
-        articleContentTextView.setText(variablesOfArticle[1]);
         articleNameTextView.setText(variablesOfArticle[0]);
+
 
         List<String> articleWords = new ArrayList<String>();
         BreakIterator breakIterator = BreakIterator.getWordInstance();
         breakIterator.setText(variablesOfArticle[1]);
         int lastIndex = breakIterator.first();
+
         while (BreakIterator.DONE != lastIndex) { // If the size of words are not equal to lastIndex , we can continue.
             int firstIndex = lastIndex; //We are defining first index of each word beginning with lastIndex we used.
             lastIndex = breakIterator.next(); //We are iterating the last index to end of the current word.
@@ -95,41 +95,30 @@ public class articlePageModel extends AppCompatActivity{
                 articleWords.add(variablesOfArticle[1].substring(firstIndex, lastIndex).toLowerCase());
             }
         }
-        Integer[] articleWordsOccurences = new Integer[articleWords.size()];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         Map<String, Integer> wordsOccurencesMap = new HashMap<String, Integer>();
+
         for (int i = 0 ; i < articleWords.size() ; i++){
-
-
             wordsOccurencesMap.put(articleWords.get(i),Collections.frequency(articleWords,articleWords.get(i)));
-
         }
-
-
 
         MapUtil mapUtil = new MapUtil();
         Map<String, Integer> wordsOccurencesMap_Sorted = new HashMap<String, Integer>();
-
-
         wordsOccurencesMap_Sorted = mapUtil.crunchifySortMap(wordsOccurencesMap);
 
+        String [] topFiveArticleWords = new String[5]; // Get the Top 5 Occurence of All the Words .
+        int i = 0;
+        Iterator<Map.Entry<String, Integer>> it = wordsOccurencesMap_Sorted.entrySet().iterator();
+        while (it.hasNext() && i < 5) {
+            Map.Entry<String, Integer> pair = it.next();
+            topFiveArticleWords[i] = pair.getKey();
+            i++;
+        }
 
+        //
+        // Set the Content of the Article after you finish the translation of the topFiveArticleWords !
+        //
+        articleContentTextView.setText(variablesOfArticle[1]);
 
 
 

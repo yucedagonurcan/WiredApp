@@ -25,35 +25,4 @@ public class MapUtil {
         return sortedCrunchifyMap;
     }
 
-    public static void main(String args[]) {
-
-        Random random = new Random(System.currentTimeMillis());
-
-        // Variable with size 10
-        Map<String, Integer> initialCrunchifyMapValue = new HashMap<String, Integer>(10);
-        for (int i = 0; i < 10; ++i) {
-            initialCrunchifyMapValue.put("Crunchify # " + i, random.nextInt(500));
-        }
-
-        log("Initial CrunchifyMapValue ========== \n");
-        for (Map.Entry<String, Integer> entry : initialCrunchifyMapValue.entrySet()) {
-            log(entry.getKey() + "\t" + entry.getValue());
-        }
-
-        Map<String, Integer> sortedCrunchifyMapValue = new HashMap<String, Integer>(10);
-
-        // Sort Map on value by calling crunchifySortMap()
-        sortedCrunchifyMapValue = MapUtil.crunchifySortMap(initialCrunchifyMapValue);
-
-        log("\nSorted CrunchifyMapValue ========== \n");
-
-        for (Map.Entry<String, Integer> entry : sortedCrunchifyMapValue.entrySet()) {
-            log(entry.getKey() + "\t" + entry.getValue());
-        }
-    }
-
-    private static void log(String value) {
-        System.out.println(value);
-
-    }
 }
