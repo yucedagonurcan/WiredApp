@@ -20,17 +20,56 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
+
     ListView listView;
     Context context = this ;
     List<String> data;
     articleModel [] articleModelsArray = new articleModel[5];// We initialize the array of articles !
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         for (int i = 0 ; i < 5 ; i ++){
 
             articleModel tempArticleModel = new articleModel();
