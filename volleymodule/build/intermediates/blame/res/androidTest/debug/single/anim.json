@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_fade_in.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_fade_out.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/onur/Desktop/Projects/AndroidDevelopment/WiredApp/volleymodule/build/intermediates/res/merged/androidTest/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/onur/.android/build-cache/de129233b686f9589e28fcd092f0257e59015021/output/res/anim/abc_slide_out_top.xml"
+    }
+]

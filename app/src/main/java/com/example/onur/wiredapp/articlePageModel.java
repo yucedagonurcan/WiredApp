@@ -11,8 +11,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +60,6 @@ public class articlePageModel extends AppCompatActivity{
         LayoutInflater inflater = (LayoutInflater) this.getSystemService
                 (this.LAYOUT_INFLATER_SERVICE);
         RelativeLayout customLayoutReference = (RelativeLayout) inflater.inflate(R.layout.customlayout, null);
-
 
 
         Bundle extras = getIntent().getExtras();
@@ -115,6 +124,29 @@ public class articlePageModel extends AppCompatActivity{
             i++;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        for(int k = 0 ; k < topFiveArticleWords.length ; k++){
+
+            translateText(topFiveArticleWords[k]);
+        }
+
+
+
+
+
+
         //
         // Set the Content of the Article after you finish the translation of the topFiveArticleWords !
         //
@@ -128,8 +160,91 @@ public class articlePageModel extends AppCompatActivity{
 
 
 
+    }
+
+    public String translateText (final String textToTranslate) {
+
+        urlYandexTranslate urlYandexTranslateObject = new urlYandexTranslate(textToTranslate); // Create a object with the desired text to translate.
+
+        String translationUrl = urlYandexTranslateObject.getUrl();//Get the entire URL for this request.
+
+
+        RequestQueue queue = Volley.newRequestQueue(this); // this = context
+
+
+
+        // prepare the Request
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, translationUrl, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        Log.d("Response", response.toString());
+                        String k = "s";
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", textToTranslate);
+                    }
+                }
+        );
+
+        // add it to the RequestQueue
+        queue.add(getRequest);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return "";
 
     }
+
+
+
+
+    public class urlYandexTranslate {
+
+        String entryUrl ;
+        String textToTranslate;
+        String apiKey ;
+        String lang ;
+
+        urlYandexTranslate(String textToTranslateString){
+            this.entryUrl = "https://translate.yandex.net/api/v1.5/tr.json/translate?";
+            this.apiKey = "key=trnsl.1.1.20170821T113600Z.abc385b492600154.3fb34f603072872e5ddf02ce9b91397b1ac3e459";
+            this.lang = "&lang=en-tr";
+            this.textToTranslate = "&text="+textToTranslateString;
+        }
+
+        String getUrl (){
+
+            String url = entryUrl+apiKey+textToTranslate+lang;
+            return url;
+
+        }
+
+
+    }
+
+
+
+
+
 
 
 
