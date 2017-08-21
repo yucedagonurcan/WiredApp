@@ -29,21 +29,48 @@
                 android:id="@+id/articleNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="0.08"
+                android:accessibilityLiveRegion="assertive"
                 android:fontFamily="sans-serif"
+                android:paddingLeft="8dp"
                 android:text="Article Name"
-                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textSize="24sp"
-                android:typeface="normal" />
+                android:typeface="sans" />
 
             <TextView
                 android:id="@+id/articleContentTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:paddingLeft="8dp"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/topFiveWordsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="0.22"
+                android:background="@color/colorAccent"
+                android:paddingLeft="8dp"
+                android:text="TextView"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:text="Top Five Words." />
         </LinearLayout>
     </ScrollView>
 

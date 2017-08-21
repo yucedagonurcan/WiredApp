@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,23 +35,10 @@ import static junit.framework.Assert.assertEquals;
 
 public class articlePageModel extends AppCompatActivity{
 
-
-
-
-    public class wordsAndOccurencesModel {
-
-        String word;
-        Integer occurence;
-
-        wordsAndOccurencesModel(){
-            this.word = "";
-            this.occurence = 0;
-        }
-
-    }
+    Map<String, String> translatedWords = new HashMap<>();//HashMap to hold the words and their translations.
 
     String [] variablesOfArticle ;
-
+    String topFiveWordsString = "Translation Of Top Five Occurences Words";
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,13 +102,12 @@ public class articlePageModel extends AppCompatActivity{
         MapUtil mapUtil = new MapUtil();
         Map<String, Integer> wordsOccurencesMap_Sorted = new HashMap<String, Integer>();
         wordsOccurencesMap_Sorted = mapUtil.crunchifySortMap(wordsOccurencesMap);
-
-        String [] topFiveArticleWords = new String[5]; // Get the Top 5 Occurence of All the Words .
-        int i = 0;
         Iterator<Map.Entry<String, Integer>> it = wordsOccurencesMap_Sorted.entrySet().iterator();
+
+        int i = 0;
         while (it.hasNext() && i < 5) {
             Map.Entry<String, Integer> pair = it.next();
-            topFiveArticleWords[i] = pair.getKey();
+            translatedWords.put(pair.getKey(),translateText(pair.getKey()));//Translate the words in order and add into the hashMap!
             i++;
         }
 
@@ -137,10 +124,6 @@ public class articlePageModel extends AppCompatActivity{
 
 
 
-        for(int k = 0 ; k < topFiveArticleWords.length ; k++){
-
-            translateText(topFiveArticleWords[k]);
-        }
 
 
 
@@ -164,24 +147,27 @@ public class articlePageModel extends AppCompatActivity{
 
     public String translateText (final String textToTranslate) {
 
+        final TextView topFiveWordsTextView = (TextView)findViewById(R.id.topFiveWordsTextView);
+
         urlYandexTranslate urlYandexTranslateObject = new urlYandexTranslate(textToTranslate); // Create a object with the desired text to translate.
 
         String translationUrl = urlYandexTranslateObject.getUrl();//Get the entire URL for this request.
 
-
+        String translatedString = "null";
         RequestQueue queue = Volley.newRequestQueue(this); // this = context
-
-
 
         // prepare the Request
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, translationUrl, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONObject response) throws JSONException {
                         // display response
                         Log.d("Response", response.toString());
-                        String k = "s";
+                        String translatedString = (String) response.getJSONArray("text").get(0);
+
+                        topFiveWordsString = topFiveWordsString + "\n" +  textToTranslate + " = "  + translatedString ;
+                        topFiveWordsTextView.setText(topFiveWordsString);
 
                     }
                 },
@@ -210,7 +196,7 @@ public class articlePageModel extends AppCompatActivity{
 
 
 
-        return "";
+        return translatedString;
 
     }
 
