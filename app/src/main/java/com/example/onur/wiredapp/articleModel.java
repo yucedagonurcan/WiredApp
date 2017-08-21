@@ -15,10 +15,7 @@ public class articleModel{
         this.articleLink = "";
         this.articleName = "";
         this.articleImageLink = "";
-
-
     }
-
 
     public void printArticleModel(){
 

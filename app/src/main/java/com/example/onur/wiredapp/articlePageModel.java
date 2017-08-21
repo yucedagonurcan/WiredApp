@@ -38,7 +38,7 @@ public class articlePageModel extends AppCompatActivity{
     Map<String, String> translatedWords = new HashMap<>();//HashMap to hold the words and their translations.
 
     String [] variablesOfArticle ;
-    String topFiveWordsString = "Translation Of Top Five Occurences Words";
+    String topFiveWordsString = "";
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,38 +111,7 @@ public class articlePageModel extends AppCompatActivity{
             i++;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //
-        // Set the Content of the Article after you finish the translation of the topFiveArticleWords !
-        //
         articleContentTextView.setText(variablesOfArticle[1]);
-
-
-
-
-
-
-
-
-
     }
 
     public String translateText (final String textToTranslate) {
@@ -166,8 +135,8 @@ public class articlePageModel extends AppCompatActivity{
                         Log.d("Response", response.toString());
                         String translatedString = (String) response.getJSONArray("text").get(0);
 
-                        topFiveWordsString = topFiveWordsString + "\n" +  textToTranslate + " = "  + translatedString ;
-                        topFiveWordsTextView.setText(topFiveWordsString);
+                        topFiveWordsString = topFiveWordsString + "\n"  +textToTranslate + " = "  + translatedString ;
+                        topFiveWordsTextView.setText(topFiveWordsString+"\n");
 
                     }
                 },
@@ -183,25 +152,9 @@ public class articlePageModel extends AppCompatActivity{
         // add it to the RequestQueue
         queue.add(getRequest);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         return translatedString;
 
     }
-
-
-
 
     public class urlYandexTranslate {
 
@@ -223,17 +176,5 @@ public class articlePageModel extends AppCompatActivity{
             return url;
 
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
 }

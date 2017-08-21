@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         for (int i = 0 ; i < 5 ; i ++){
 
             articleModel tempArticleModel = new articleModel();
@@ -45,15 +44,19 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                if(articleModelsArray[position].articleContent != ""){ // Don't load the next page if the articles aren't downloaded !
+
                     Intent myIntent = new Intent(view.getContext(), articlePageModel.class);
                     String [] articleVariables = {articleModelsArray[position].articleName,
                             articleModelsArray[position].articleContent,
                             articleModelsArray[position].articleImageLink};
                     myIntent.putExtra("variablesOfArticle",articleVariables);
                     startActivityForResult(myIntent, 0);
+
+                }
+
             }
         });
-
 
         new ParsePage().execute("https://www.wired.com");
     }
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
             }
             textView_desc.setText(articleModelsArray[i].articleName);
 
-            textView_desc.setBackgroundColor(getResources().getColor(R.color.white));
             return view;
         }
     }
@@ -139,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 articleModelsArray[i].printArticleModel();
                 new ParseContentPage(articleModelsArray[i]).execute(articleModelsArray[i].articleLink);
             }
-
 
         }
         protected void onPreExecute(String res){

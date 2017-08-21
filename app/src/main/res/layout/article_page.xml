@@ -56,7 +56,7 @@
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/topFiveWordsTextView"
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -65,12 +65,31 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_weight="0.22"
-                android:background="@color/colorAccent"
+                android:accessibilityLiveRegion="assertive"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="8dp"
+                android:text="Words and Their Meanings"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="24sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/topFiveWordsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="568.95"
+                android:background="@drawable/wordsrect"
                 android:paddingLeft="8dp"
                 android:text="TextView"
-                android:textColor="@color/white"
+                android:textColor="#d7f4f4f4"
                 android:textSize="18sp"
-                tools:text="Top Five Words." />
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 

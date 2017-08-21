@@ -14,7 +14,6 @@ public class MapUtil {
                 return entry2.getValue().compareTo(entry1.getValue());
             }
         });
-
         Map<K, V> sortedCrunchifyMap = new LinkedHashMap<K, V>();
 
         // The Map.entrySet method returns a collection-view of the map
